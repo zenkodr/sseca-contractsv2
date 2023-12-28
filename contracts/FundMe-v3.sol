@@ -16,7 +16,7 @@ contract FundMe is ReentrancyGuard, Pausable {
     // Add circuit breaker
     bool public stopped = false;
 
-    using Math for uint256;
+
     using SafeERC20 for IERC20;
 
     enum CampaignState {
@@ -107,7 +107,9 @@ contract FundMe is ReentrancyGuard, Pausable {
         // Emit event
         emit CampaignCreated(campaignId);
 
-        numberOfCampaigns = numberOfCampaigns.add(1);
+        numberOfCampaigns++;
+
+        return numberOfCampaigns - 1;
     }
 
     /**
