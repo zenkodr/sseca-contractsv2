@@ -1,10 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.23;
 
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-
-contract FundMe is Ownable, ReentrancyGuard {
+contract FundMe {
     struct Campaign {
         address owner;
         string title;
@@ -26,7 +23,7 @@ contract FundMe is Ownable, ReentrancyGuard {
         uint256 _target,
         uint256 _deadline,
         string memory _image
-    ) public onlyOwner nonReentrant returns (uint256) {
+    ) public returns (uint256) {
 
         Campaign storage campaign = campaigns[numberOfCampaigns];
 
@@ -61,9 +58,9 @@ contract FundMe is Ownable, ReentrancyGuard {
         return numberOfCampaigns - 1;
     }
 
-    function donateToCampaign(uint256 _id) public payable nonReentrant {
+    function donateToCampaign(uint256 _id) public payable {
         uint256 amount = msg.value;
-        
+
         require(msg.value > 0, "The amount must be above 0");
 
         Campaign storage campaign = campaigns[_id];
