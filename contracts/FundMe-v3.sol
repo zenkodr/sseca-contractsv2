@@ -89,7 +89,9 @@ contract FundMe is ReentrancyGuard, Pausable {
         require(target > 0.1 ether, "Invalid target");
         require(deadline > block.timestamp, "Invalid deadline");
 
-        campaignId = keccak256(abi.encodePacked(title));
+        campaignId = keccak256(
+            abi.encodePacked(title, blockhash(block.number), msg.sender)
+        );
 
         Campaign storage campaign = campaigns[campaignId];
 
@@ -108,7 +110,9 @@ contract FundMe is ReentrancyGuard, Pausable {
         // Emit event
         emit CampaignCreated(campaignId);
 
-        numberOfCampaigns = numberOfCampaigns.add(1);
+        numberOfCampaigns++;
+
+        return numberOfCampaigns - 1;
     }
 
     /**
