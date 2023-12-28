@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 
 /**
  * @title FundMe Campaign
- * @author ZenKodr
+ * @author ZenKodr vrt
  * @notice Creates crowdfunding campaigns allowing people to donate funds
  */
 contract FundMe is ReentrancyGuard, Pausable {
