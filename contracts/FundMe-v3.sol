@@ -3,6 +3,7 @@ pragma solidity 0.8.23;
 
 import "@openzeppelin/contracts/utils/math/Math.sol";
 import "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
@@ -16,7 +17,7 @@ contract FundMe is ReentrancyGuard, Pausable {
     // Add circuit breaker
     bool public stopped = false;
 
-
+    using Math for uint256;
     using SafeERC20 for IERC20;
 
     enum CampaignState {
@@ -107,9 +108,7 @@ contract FundMe is ReentrancyGuard, Pausable {
         // Emit event
         emit CampaignCreated(campaignId);
 
-        numberOfCampaigns++;
-
-        return numberOfCampaigns - 1;
+        numberOfCampaigns = numberOfCampaigns.add(1);
     }
 
     /**
